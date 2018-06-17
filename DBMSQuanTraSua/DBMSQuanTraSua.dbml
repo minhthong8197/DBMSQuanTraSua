@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanTraSua" Class="DBMSQuanTraSuaDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=MINHTHONGPC\SQLEXPRESS;Initial Catalog=QuanTraSua;User ID=admin" SettingsObjectName="DBMSQuanTraSua.Properties.Settings" SettingsPropertyName="QuanTraSuaConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TB_ChiTietHoaDon" Member="TB_ChiTietHoaDons">
+    <Type Name="TB_ChiTietHoaDon">
+      <Column Name="MaHoaDon" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaSanPham" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ThanhTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="TB_HoaDon_TB_ChiTietHoaDon" Member="TB_HoaDon" ThisKey="MaHoaDon" OtherKey="MaHoaDon" Type="TB_HoaDon" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TB_SanPham_TB_ChiTietHoaDon" Member="TB_SanPham" ThisKey="MaSanPham" OtherKey="MaSanPham" Type="TB_SanPham" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_TaiKhoan" Member="TB_TaiKhoans">
+    <Type Name="TB_TaiKhoan">
+      <Column Name="TenDangNhap" Type="System.String" DbType="NVarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MatKhau" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="MaNhanVien" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="VaiTro" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="TamKhoa" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="TB_NhanVien_TB_TaiKhoan" Member="TB_NhanVien" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="TB_NhanVien" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_ChiTietNguyenLieu" Member="TB_ChiTietNguyenLieus">
+    <Type Name="TB_ChiTietNguyenLieu">
+      <Column Name="MaSanPham" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaNguyenLieu" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="TB_NguyenLieu_TB_ChiTietNguyenLieu" Member="TB_NguyenLieu" ThisKey="MaNguyenLieu" OtherKey="MaNguyenLieu" Type="TB_NguyenLieu" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TB_SanPham_TB_ChiTietNguyenLieu" Member="TB_SanPham" ThisKey="MaSanPham" OtherKey="MaSanPham" Type="TB_SanPham" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_DonVi" Member="TB_DonVis">
+    <Type Name="TB_DonVi">
+      <Column Name="MaDonVi" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenDonVi" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Association Name="TB_DonVi_TB_NguyenLieu" Member="TB_NguyenLieus" ThisKey="MaDonVi" OtherKey="MaDonVi" Type="TB_NguyenLieu" />
+      <Association Name="TB_DonVi_TB_SanPham" Member="TB_SanPhams" ThisKey="MaDonVi" OtherKey="MaDonVi" Type="TB_SanPham" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_HoaDon" Member="TB_HoaDons">
+    <Type Name="TB_HoaDon">
+      <Column Name="MaHoaDon" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaNhanVien" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="MaKhachHang" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ThoiGian" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="TB_HoaDon_TB_ChiTietHoaDon" Member="TB_ChiTietHoaDons" ThisKey="MaHoaDon" OtherKey="MaHoaDon" Type="TB_ChiTietHoaDon" />
+      <Association Name="TB_KhachHang_TB_HoaDon" Member="TB_KhachHang" ThisKey="MaKhachHang" OtherKey="MaKhachHang" Type="TB_KhachHang" IsForeignKey="true" DeleteRule="SET NULL" />
+      <Association Name="TB_NhanVien_TB_HoaDon" Member="TB_NhanVien" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="TB_NhanVien" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_KhachHang" Member="TB_KhachHangs">
+    <Type Name="TB_KhachHang">
+      <Column Name="MaKhachHang" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="SoDienThoai" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Association Name="TB_KhachHang_TB_HoaDon" Member="TB_HoaDons" ThisKey="MaKhachHang" OtherKey="MaKhachHang" Type="TB_HoaDon" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_LoaiSanPham" Member="TB_LoaiSanPhams">
+    <Type Name="TB_LoaiSanPham">
+      <Column Name="MaLoaiSanPham" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenLoaiSanPham" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="TB_LoaiSanPham_TB_SanPham" Member="TB_SanPhams" ThisKey="MaLoaiSanPham" OtherKey="MaLoaiSanPham" Type="TB_SanPham" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_NguyenLieu" Member="TB_NguyenLieus">
+    <Type Name="TB_NguyenLieu">
+      <Column Name="MaNguyenLieu" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenNguyenLieu" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="MaDonVi" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TamKhoa" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="TB_NguyenLieu_TB_ChiTietNguyenLieu" Member="TB_ChiTietNguyenLieus" ThisKey="MaNguyenLieu" OtherKey="MaNguyenLieu" Type="TB_ChiTietNguyenLieu" />
+      <Association Name="TB_DonVi_TB_NguyenLieu" Member="TB_DonVi" ThisKey="MaDonVi" OtherKey="MaDonVi" Type="TB_DonVi" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_NhanVien" Member="TB_NhanViens">
+    <Type Name="TB_NhanVien">
+      <Column Name="MaNhanVien" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="CMND" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="SoDienThoai" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="NgayVaoLam" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ChucVu" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="MucLuong" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="MaQuay" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="TamKhoa" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="TB_NhanVien_TB_TaiKhoan" Member="TB_TaiKhoans" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="TB_TaiKhoan" />
+      <Association Name="TB_NhanVien_TB_HoaDon" Member="TB_HoaDons" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="TB_HoaDon" />
+      <Association Name="TB_Quay_TB_NhanVien" Member="TB_Quay" ThisKey="MaQuay" OtherKey="MaQuay" Type="TB_Quay" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_Quay" Member="TB_Quays">
+    <Type Name="TB_Quay">
+      <Column Name="MaQuay" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenQuay" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="SoLuongNhanVien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="TB_Quay_TB_NhanVien" Member="TB_NhanViens" ThisKey="MaQuay" OtherKey="MaQuay" Type="TB_NhanVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_SanPham" Member="TB_SanPhams">
+    <Type Name="TB_SanPham">
+      <Column Name="MaSanPham" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenSanPham" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaDonVi" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="MaLoaiSanPham" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="TamKhoa" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="TB_SanPham_TB_ChiTietHoaDon" Member="TB_ChiTietHoaDons" ThisKey="MaSanPham" OtherKey="MaSanPham" Type="TB_ChiTietHoaDon" />
+      <Association Name="TB_SanPham_TB_ChiTietNguyenLieu" Member="TB_ChiTietNguyenLieus" ThisKey="MaSanPham" OtherKey="MaSanPham" Type="TB_ChiTietNguyenLieu" />
+      <Association Name="TB_DonVi_TB_SanPham" Member="TB_DonVi" ThisKey="MaDonVi" OtherKey="MaDonVi" Type="TB_DonVi" IsForeignKey="true" DeleteRule="SET NULL" />
+      <Association Name="TB_LoaiSanPham_TB_SanPham" Member="TB_LoaiSanPham" ThisKey="MaLoaiSanPham" OtherKey="MaLoaiSanPham" Type="TB_LoaiSanPham" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Function Name="dbo.uspChoNghiViec" Method="uspChoNghiViec">
+    <Parameter Name="MaNhanVien" Parameter="maNhanVien" Type="System.String" DbType="NVarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspXoaNhanVien" Method="uspXoaNhanVien">
+    <Parameter Name="MaNhanVien" Parameter="maNhanVien" Type="System.String" DbType="NVarChar(10)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspDoiMatKhau" Method="uspDoiMatKhau">
+    <Parameter Name="forlogin" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="newpass" Type="System.String" DbType="NVarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspGiaiMaChuoi" Method="uspGiaiMaChuoi">
+    <Parameter Name="inputstring" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="outputstring" Type="System.String" DbType="NVarChar(30)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspMaHoaChuoi" Method="uspMaHoaChuoi">
+    <Parameter Name="inputstring" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="outputstring" Type="System.String" DbType="NVarChar(30)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspSuaNhanVien" Method="uspSuaNhanVien">
+    <Parameter Name="MaNhanVien" Parameter="maNhanVien" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="HoTen" Parameter="hoTen" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="GioiTinh" Parameter="gioiTinh" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="NgaySinh" Parameter="ngaySinh" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="CMND" Parameter="cMND" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="SoDienThoai" Parameter="soDienThoai" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="DiaChi" Parameter="diaChi" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="NgayVaoLam" Parameter="ngayVaoLam" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="ChucVu" Parameter="chucVu" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="MucLuong" Parameter="mucLuong" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="MaQuay" Parameter="maQuay" Type="System.String" DbType="NVarChar(10)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspTachChuoi" Method="uspTachChuoi">
+    <Parameter Name="inputstring" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="outputvalue1" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="outputvalue2" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspTaoTaiKhoanSQL" Method="uspTaoTaiKhoanSQL">
+    <Parameter Name="login" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="role" Type="System.String" DbType="VarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspThangChuc" Method="uspThangChuc">
+    <Parameter Name="MaNhanVien" Parameter="maNhanVien" Type="System.String" DbType="NVarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspThemNhanVien" Method="uspThemNhanVien">
+    <Parameter Name="MaNhanVien" Parameter="maNhanVien" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="HoTen" Parameter="hoTen" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="GioiTinh" Parameter="gioiTinh" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="NgaySinh" Parameter="ngaySinh" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="CMND" Parameter="cMND" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="SoDienThoai" Parameter="soDienThoai" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="DiaChi" Parameter="diaChi" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="NgayVaoLam" Parameter="ngayVaoLam" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="ChucVu" Parameter="chucVu" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="MucLuong" Parameter="mucLuong" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="MaQuay" Parameter="maQuay" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="TamKhoa" Parameter="tamKhoa" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspTinhThoiGianLamViecTaiQuan" Method="uspTinhThoiGianLamViecTaiQuan" IsComposable="true">
+    <Parameter Name="inputMaNhanVien" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="kq" Type="System.String" DbType="NVarChar(50)" Direction="InOut" />
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.ufuDemSoNhanVienConLamViec" Method="ufuDemSoNhanVienConLamViec" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ufuTinhTienThuTheoThang" Method="ufuTinhTienThuTheoThang" IsComposable="true">
+    <Parameter Name="inputnam" Type="System.Int32" DbType="Int" />
+    <Parameter Name="inputthang" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ufuLayHoaDon" Method="ufuLayHoaDon" IsComposable="true">
+    <ElementType Name="ufuLayHoaDonResult">
+      <Column Name="MaHoaDon" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TenNhanVien" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="TenKhachHang" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="ThoiGian" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ufuLocHoaDon" Method="ufuLocHoaDon" IsComposable="true">
+    <Parameter Name="inputvalue1" Type="System.Int32" DbType="Int" />
+    <Parameter Name="inputvalue2" Type="System.Int32" DbType="Int" />
+    <ElementType Name="ufuLocHoaDonResult">
+      <Column Name="MaHoaDon" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MaNhanVien" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="MaKhachHang" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ThoiGian" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ufuThongKeDoanhThuThang" Method="ufuThongKeDoanhThuThang" IsComposable="true">
+    <Parameter Name="inputyear" Type="System.Int32" DbType="Int" />
+    <ElementType Name="ufuThongKeDoanhThuThangResult">
+      <Column Name="Tháng" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Năm" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="[Tiền Thu Vào]" Member="Tiền_Thu_Vào" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Tiền Chi Ra]" Member="Tiền_Chi_Ra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Tiền Lời]" Member="Tiền_Lời" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.uspThemHoaDon" Method="uspThemHoaDon">
+    <Parameter Name="MaHoaDon" Parameter="maHoaDon" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="MaNhanVien" Parameter="maNhanVien" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="MaKhachHang" Parameter="maKhachHang" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="TongTien" Parameter="tongTien" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ufuTimKiemNhanVienTheoTen" Method="ufuTimKiemNhanVienTheoTen" IsComposable="true">
+    <Parameter Name="input" Type="System.String" DbType="NVarChar(30)" />
+    <ElementType Name="ufuTimKiemNhanVienTheoTenResult">
+      <Column Name="MaNhanVien" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="CMND" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="SoDienThoai" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="NgayVaoLam" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ChucVu" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="MucLuong" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="TenQuay" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="TamKhoa" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>
